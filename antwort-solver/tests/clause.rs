@@ -1,5 +1,4 @@
-use antwort_solver::clause::Clause;
-use antwort_solver::error::Error;
+use antwort_solver::{clause::Clause, error::Error};
 
 #[test]
 fn clause_new() {
