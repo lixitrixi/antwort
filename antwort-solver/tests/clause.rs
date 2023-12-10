@@ -1,4 +1,4 @@
-use antwort_solver::ast::Clause;
+use antwort_solver::clause::Clause;
 use antwort_solver::error::Error;
 
 #[test]
