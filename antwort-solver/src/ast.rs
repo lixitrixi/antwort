@@ -25,15 +25,15 @@ impl Clause {
         let dest = self.get_sign_vector(literal)?;
         let (i, j) = get_index_offset(literal);
 
-        if i as usize >= dest.len() {
+        if i >= dest.len() {
             // Grow the vector to fit the index
-            dest.resize((i + 1) as usize, 0);
+            dest.resize(i + 1, 0);
         }
-        if dest[i as usize] & (1 << j) != 0 {
+        if dest[i] & (1 << j) != 0 {
             // Literal already exists
             return Ok(());
         }
-        dest[i as usize] |= 1 << j;
+        dest[i] |= 1 << j;
         self.size += 1;
         Ok(())
     }
@@ -47,11 +47,25 @@ impl Clause {
         };
         let (i, j) = get_index_offset(literal);
 
-        if i as usize >= src.len() {
-            // Literal does not exist
+        if i >= src.len() {
+            // Vector does not reach the literal index
             return false;
         }
-        src[i as usize] & (1 << j) != 0
+        src[i] & (1 << j) != 0
+    }
+
+    pub fn remove_literal(&mut self, literal: i32) -> Result<()> {
+        let dest = self.get_sign_vector(literal)?;
+        let (i, j) = get_index_offset(literal);
+
+        if i >= dest.len() || dest[i] & (1 << j) == 0 {
+            // Vector does not reach the literal index
+            // or literal is not present
+            return Ok(());
+        }
+        dest[i] &= !(1 << j);
+        self.size -= 1;
+        Ok(())
     }
 
     fn get_sign_vector(&mut self, literal: i32) -> Result<&mut Vec<u64>> {
