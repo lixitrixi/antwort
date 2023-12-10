@@ -120,3 +120,22 @@ fn clause_remove_literal_mix() {
     assert!(!c.contains_literal(-432));
     assert_eq!(c.size(), 0);
 }
+
+#[test]
+fn clause_is_unit() {
+    let mut c = Clause::new();
+    assert_eq!(c.add_literal(1), Ok(()));
+    assert!(c.is_unit());
+    assert_eq!(c.add_literal(2), Ok(()));
+    assert!(!c.is_unit());
+}
+
+#[test]
+fn clause_is_empty() {
+    let mut c = Clause::new();
+    assert!(c.is_empty());
+    assert_eq!(c.add_literal(1), Ok(()));
+    assert!(!c.is_empty());
+    assert_eq!(c.remove_literal(1), Ok(()));
+    assert!(c.is_empty());
+}

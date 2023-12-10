@@ -68,6 +68,14 @@ impl Clause {
         Ok(())
     }
 
+    pub fn is_empty(&self) -> bool {
+        self.size == 0
+    }
+
+    pub fn is_unit(&self) -> bool {
+        self.size == 1
+    }
+
     fn get_sign_vector(&mut self, literal: i32) -> Result<&mut Vec<u64>> {
         match literal.signum() {
             1 => Ok(&mut self.pos_literals),
