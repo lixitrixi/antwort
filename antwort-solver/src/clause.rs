@@ -1,4 +1,4 @@
-use crate::error::{Error, Result};
+use crate::{Error, Result};
 
 pub struct Clause {
     pos_literals: Vec<u64>, // Bit arrays of positive literals

@@ -1,4 +1,4 @@
-use crate::clause::Clause;
+use crate::Clause;
 
 pub struct Formula {
     clauses: Vec<Clause>,

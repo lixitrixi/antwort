@@ -1,4 +1,4 @@
-use antwort_solver::{clause::Clause, error::Error, Formula};
+use antwort_solver::{Clause, Error, Formula};
 
 #[test]
 fn formula_new() {
