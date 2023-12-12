@@ -30,4 +30,16 @@ impl Formula {
     pub fn size(&self) -> usize {
         self.clauses.len()
     }
+
+    pub fn find_unit_clause(&self) -> Option<&Clause> {
+        self.clauses.iter().find(|c| c.is_unit())
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.clauses.is_empty()
+    }
+
+    pub fn contains_empty_clause(&self) -> bool {
+        self.clauses.iter().any(|c| c.is_empty())
+    }
 }

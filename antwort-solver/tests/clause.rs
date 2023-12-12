@@ -123,6 +123,7 @@ fn clause_remove_literal_mix() {
 #[test]
 fn clause_is_unit() {
     let mut c = Clause::new();
+    assert!(!c.is_unit());
     assert_eq!(c.add_literal(1), Ok(()));
     assert!(c.is_unit());
     assert_eq!(c.add_literal(2), Ok(()));
