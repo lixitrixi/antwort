@@ -20,7 +20,7 @@ impl Clause {
         self.size
     }
 
-    /// Adds a literal to this clause.
+    /// Adds a literal to this clause. A negative literal represents its negated form.
     pub fn add_literal(&mut self, literal: i32) -> Result<()> {
         let dest = self.get_sign_vector(literal)?;
         let (i, j) = get_index_offset(literal);
@@ -39,6 +39,8 @@ impl Clause {
     }
 
     /// Returns true if this clause contains the given literal.
+    /// # Returns
+    /// `false` if the literal is not present or is invalid.
     pub fn contains_literal(&mut self, literal: i32) -> bool {
         let src = self.get_sign_vector(literal);
         let src = match src {
@@ -54,6 +56,9 @@ impl Clause {
         src[i] & (1 << j) != 0
     }
 
+    /// Removes the given literal from this clause.
+    /// # Returns
+    /// `Ok(())` if the literal was removed.
     pub fn remove_literal(&mut self, literal: i32) -> Result<()> {
         let dest = self.get_sign_vector(literal)?;
         let (i, j) = get_index_offset(literal);
