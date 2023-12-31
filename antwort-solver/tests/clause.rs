@@ -1,4 +1,4 @@
-use antwort_solver::{clause::Clause, error::Error};
+use antwort_solver::{Clause, Error};
 
 #[test]
 fn clause_new() {

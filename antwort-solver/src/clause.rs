@@ -23,7 +23,7 @@ impl Clause {
 
     /// Adds a literal to this clause. A negative literal represents its negated form.
     pub fn add_literal(&mut self, literal: Literal) -> Result<()> {
-        let dest = self.get_sign_vector(literal)?;
+        let dest: &mut Vec<u64> = self.get_sign_vector_mut(literal)?;
         let (i, j) = get_index_offset(literal);
 
         if i >= dest.len() {
@@ -42,7 +42,7 @@ impl Clause {
     /// Returns true if this clause contains the given literal.
     /// # Returns
     /// `false` if the literal is not present or is invalid.
-    pub fn contains_literal(&mut self, literal: Literal) -> bool {
+    pub fn contains_literal(&self, literal: Literal) -> bool {
         let src = self.get_sign_vector(literal);
         let src = match src {
             Ok(src) => src,
@@ -61,7 +61,7 @@ impl Clause {
     /// # Returns
     /// `Ok(())` if the literal was removed.
     pub fn remove_literal(&mut self, literal: Literal) -> Result<()> {
-        let dest = self.get_sign_vector(literal)?;
+        let dest = self.get_sign_vector_mut(literal)?;
         let (i, j) = get_index_offset(literal);
 
         if i >= dest.len() || dest[i] & (1 << j) == 0 {
@@ -101,7 +101,15 @@ impl Clause {
         self.size == 1
     }
 
-    fn get_sign_vector(&mut self, literal: Literal) -> Result<&mut Vec<u64>> {
+    fn get_sign_vector(&self, literal: Literal) -> Result<&Vec<u64>> {
+        match literal.signum() {
+            1 => Ok(&self.pos_literals),
+            -1 => Ok(&self.neg_literals),
+            _ => Err(Error::InvalidLiteral),
+        }
+    }
+
+    fn get_sign_vector_mut(&mut self, literal: Literal) -> Result<&mut Vec<u64>> {
         match literal.signum() {
             1 => Ok(&mut self.pos_literals),
             -1 => Ok(&mut self.neg_literals),

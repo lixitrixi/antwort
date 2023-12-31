@@ -96,13 +96,13 @@ fn formula_find_unit_clause() {
     let mut c = Clause::new();
     c.add_literal(1).unwrap();
     f.add_clause(c);
-    assert!(f.find_unit_clause().is_some());
+    assert!(f.get_unit_clause().is_some());
 }
 
 #[test]
 fn formula_find_unit_clause_empty() {
     let f = Formula::new();
-    assert!(f.find_unit_clause().is_none());
+    assert!(f.get_unit_clause().is_none());
 }
 
 #[test]
@@ -110,5 +110,5 @@ fn formula_find_unit_clause_none() {
     let mut f = Formula::new();
     f.add_clause(Clause::new());
     f.add_clause(Clause::new());
-    assert!(f.find_unit_clause().is_none());
+    assert!(f.get_unit_clause().is_none());
 }

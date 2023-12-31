@@ -1,7 +1,7 @@
-pub mod clause;
-pub mod error;
-pub mod formula;
-pub mod solver;
+mod clause;
+mod error;
+mod formula;
+mod solver;
 
 pub use clause::Clause;
 pub use error::{Error, Result};
