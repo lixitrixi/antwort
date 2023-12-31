@@ -1,7 +1,13 @@
+use antwort::get_rules;
 use antwort::solver::{solve, Clause, Formula};
 use antwort::Expr;
 
 fn main() {
+    let rules = get_rules();
+    println!("{:?}", rules);
+    let res = rules[0].apply(&Expr::Variable("a".to_string()));
+    println!("{:?}", res);
+
     let expr = Expr::Variable("a".to_string());
     println!("{:?}", expr);
 
