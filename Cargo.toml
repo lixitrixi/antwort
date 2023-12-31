@@ -1,6 +1,6 @@
 [workspace]
 members = [
     "antwort",
-    "antwort-core",
-    "antwort-solver",
+    "antwort_core",
+    "antwort_solver",
 ]
