@@ -48,29 +48,3 @@ fn solve_impl(formula: &mut Formula) -> Result<Vec<Literal>> {
         }
     }
 }
-
-// bool DPLL(ClauseSet* this) {
-//     if (isEmptyClauseSet(this)) {
-//         return true;
-//     } else if (containsEmptyClause(this)) {
-//         return false;
-//     } else {
-//         int lit;
-//         int uc = findUnitClause(this);
-//         if (uc >= 0) { // unit clause found, literal must be true
-//             lit = getLiteral(getClause(this, uc), 0); // get the lone literal
-//             simplifySet(this, lit);
-//             return DPLL(this);
-//         } else { // choose arbitrary literal and try true/false
-//             lit = getLiteral(getClause(this, 0), 0);
-//             ClauseSet copy = *this; // see report for more about this
-//             simplifySet(this, lit); // try true
-//             if (DPLL(this)) {
-//                 return true;
-//             } else {
-//                 simplifySet(&copy, -lit); // try false
-//                 return DPLL(&copy);
-//             }
-//         }
-//     }
-// }
