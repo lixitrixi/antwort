@@ -1,5 +1,6 @@
 use crate::Clause;
 
+#[derive(Clone, Debug, PartialEq)]
 pub struct Formula {
     clauses: Vec<Clause>,
 }
@@ -31,8 +32,9 @@ impl Formula {
         self.clauses.len()
     }
 
-    pub fn find_unit_clause(&self) -> Option<&Clause> {
-        self.clauses.iter().find(|c| c.is_unit())
+    /// Returns the index and value of a unit clause in this formula, if one exists.
+    pub fn find_unit_clause(&self) -> Option<(usize, &Clause)> {
+        self.clauses.iter().enumerate().find(|(_, c)| c.is_unit())
     }
 
     pub fn is_empty(&self) -> bool {

@@ -139,3 +139,44 @@ fn clause_is_empty() {
     assert_eq!(c.remove_literal(1), Ok(()));
     assert!(c.is_empty());
 }
+
+#[test]
+fn clause_get_literal_empty() {
+    let mut c = Clause::new();
+    assert_eq!(c.get_literal(), None);
+}
+
+#[test]
+fn clause_get_literal_one() {
+    let mut c = Clause::new();
+    assert_eq!(c.add_literal(1), Ok(()));
+    assert_eq!(c.get_literal(), Some(1));
+}
+
+#[test]
+fn clause_get_literal_negative() {
+    let mut c = Clause::new();
+    assert_eq!(c.add_literal(-1), Ok(()));
+    assert_eq!(c.get_literal(), Some(-1));
+}
+
+#[test]
+fn clause_get_literal_remove() {
+    let mut c = Clause::new();
+    assert_eq!(c.add_literal(1), Ok(()));
+    assert_eq!(c.remove_literal(1), Ok(()));
+    assert_eq!(c.get_literal(), None);
+}
+
+#[test]
+fn clause_get_literal_multiple() {
+    let mut c = Clause::new();
+    assert_eq!(c.add_literal(1), Ok(()));
+    assert_eq!(c.get_literal(), Some(1));
+    assert_eq!(c.remove_literal(1), Ok(()));
+    assert_eq!(c.get_literal(), None);
+    assert_eq!(c.add_literal(-3), Ok(()));
+    assert_eq!(c.get_literal(), Some(-3));
+    assert_eq!(c.remove_literal(-3), Ok(()));
+    assert_eq!(c.get_literal(), None);
+}
