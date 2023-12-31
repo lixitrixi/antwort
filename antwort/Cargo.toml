@@ -3,8 +3,6 @@ name = "antwort"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
-antwort-core = {path = "../antwort-core" }
-antwort-solver = {path = "../antwort-solver" }
+antwort_core = {path = "../antwort_core" }
+antwort_solver = {path = "../antwort_solver" }
