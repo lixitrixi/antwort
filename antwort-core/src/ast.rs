@@ -1,6 +1,6 @@
 #[derive(Debug, PartialEq)]
 pub enum Expr {
-    Literal(String),
+    Variable(String),
     Negation(Box<Expr>),
     Disjunction(Vec<Expr>),
     Conjunction(Vec<Expr>),
