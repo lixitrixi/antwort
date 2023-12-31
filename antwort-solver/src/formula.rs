@@ -43,8 +43,8 @@ impl Formula {
     }
 
     /// Returns the index and value of a unit clause in this formula, if one exists.
-    pub fn get_unit_clause(&self) -> Option<(usize, &Clause)> {
-        self.clauses.iter().enumerate().find(|(_, c)| c.is_unit())
+    pub fn get_unit_clause(&self) -> Option<&Clause> {
+        self.clauses.iter().find(|c| c.is_unit())
     }
 
     /// Returns `true` if this formula contains no clauses.

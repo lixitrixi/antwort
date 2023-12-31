@@ -22,7 +22,7 @@ fn solve_impl(formula: &mut Formula) -> Result<Vec<Literal>> {
         return Err(Error::Unsatisfiable);
     }
     match formula.get_unit_clause() {
-        Some((index, clause)) => {
+        Some(clause) => {
             // unit clause found, literal must be true
             let literal = clause.get_literal().ok_or(Error::Unsatisfiable)?;
             formula.simplify(literal);
