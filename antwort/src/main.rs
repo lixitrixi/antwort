@@ -1,5 +1,5 @@
-use antwort::ast::Expr;
 use antwort::solver::{solve, Clause, Formula};
+use antwort::Expr;
 
 fn main() {
     let expr = Expr::Variable("a".to_string());
