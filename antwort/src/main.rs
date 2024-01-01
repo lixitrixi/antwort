@@ -3,8 +3,7 @@ use antwort::rule_engine::get_rules;
 use antwort::solver::{solve, Clause, Formula};
 use antwort::Expr;
 
-use antwort::RULES_DISTRIBUTED_SLICE;
-use antwort_core::rule::{Rule, RuleApplicationError, RuleApplicationResult};
+use antwort_core::rule::{RuleApplicationError, RuleApplicationResult};
 
 #[rule]
 fn example_rule(_expr: &Expr) -> RuleApplicationResult {
