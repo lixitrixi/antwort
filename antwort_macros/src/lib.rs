@@ -6,12 +6,15 @@ use syn::{parse_macro_input, Ident, ItemFn};
 /// This procedural macro registers a valid function with Antwort's rule engine.
 /// Functions must have the signature `fn(&Expr) -> RuleApplicationResult`.
 ///
-/// Intermediary static variables are created to allow for the decentralized registry, with the name `_ANTWORT_GEN_<identifier>`.
-/// Care must be taken that these variable names do not conflict with other variables in the scope.
+/// Intermediary static variables are created to allow for the decentralized registry, with the prefix `_ANTWORT_GEN_`.
+/// Care must be taken that other variables in the scope do not conflict with these.
 ///
 /// Below is an example application of this macro:
 /// ```
-/// #[rule]
+/// use antwort::macros::register_rule;
+/// use antwort::rule::{RuleApplicationError, RuleApplicationResult};
+/// use antwort::Expr;
+/// #[register_rule]
 /// fn example_rule(_expr: &Expr) -> RuleApplicationResult {
 ///     Err(RuleApplicationError::RuleNotApplicable)
 /// }
@@ -19,8 +22,7 @@ use syn::{parse_macro_input, Ident, ItemFn};
 /// use antwort::rule_engine::get_rules;
 /// println!("{:?}", get_rules()); // [Rule { name: "example_rule", application: <fn_pointer> }]
 /// ```
-/// The function will then be included in Antwort's rule registry, and can be used by the rule engine.
-pub fn rule(_: TokenStream, item: TokenStream) -> TokenStream {
+pub fn register_rule(_: TokenStream, item: TokenStream) -> TokenStream {
     let func = parse_macro_input!(item as ItemFn);
     let rule_ident = &func.sig.ident;
     let static_name = format!("_ANTWORT_GEN_RULE_{}", rule_ident).to_uppercase();

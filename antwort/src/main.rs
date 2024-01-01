@@ -1,11 +1,10 @@
-use antwort::macros::rule;
+use antwort::macros::register_rule;
+use antwort::rule::{RuleApplicationError, RuleApplicationResult};
 use antwort::rule_engine::get_rules;
 use antwort::solver::{solve, Clause, Formula};
 use antwort::Expr;
 
-use antwort_core::rule::{RuleApplicationError, RuleApplicationResult};
-
-#[rule]
+#[register_rule]
 fn example_rule(_expr: &Expr) -> RuleApplicationResult {
     Err(RuleApplicationError::RuleNotApplicable)
 }
