@@ -9,6 +9,7 @@ pub type RuleApplicationResult = Result<Expr, RuleApplicationError>;
 
 #[derive(Clone, Debug)]
 pub struct Rule {
+    pub name: &'static str,
     pub application: fn(&Expr) -> RuleApplicationResult,
 }
 
