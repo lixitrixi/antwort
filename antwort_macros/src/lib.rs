@@ -4,7 +4,7 @@ use syn::{parse_macro_input, Ident, ItemFn};
 
 #[proc_macro_attribute]
 /// This procedural macro registers a valid function with Antwort's rule engine.
-/// Functions must have the signature `fn(&Expr) -> RuleApplicationResult`.
+/// Functions must have the signature `fn(&Expr) -> Result<Expr, RuleApplicationError>`.
 ///
 /// Intermediary static variables are created to allow for the decentralized registry, with the prefix `_ANTWORT_GEN_`.
 /// Care must be taken that other variables in the scope do not conflict with these.
@@ -12,10 +12,10 @@ use syn::{parse_macro_input, Ident, ItemFn};
 /// Below is an example application of this macro:
 /// ```
 /// use antwort::macros::register_rule;
-/// use antwort::rule::{RuleApplicationError, RuleApplicationResult};
+/// use antwort::rule::{RuleApplicationError};
 /// use antwort::Expr;
 /// #[register_rule]
-/// fn example_rule(_expr: &Expr) -> RuleApplicationResult {
+/// fn example_rule(_expr: &Expr) -> Result<Expr, RuleApplicationError> {
 ///     Err(RuleApplicationError::RuleNotApplicable)
 /// }
 ///

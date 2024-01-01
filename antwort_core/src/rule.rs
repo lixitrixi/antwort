@@ -5,16 +5,14 @@ pub enum RuleApplicationError {
     RuleNotApplicable,
 }
 
-pub type RuleApplicationResult = Result<Expr, RuleApplicationError>;
-
 #[derive(Clone, Debug)]
 pub struct Rule {
     pub name: &'static str,
-    pub application: fn(&Expr) -> RuleApplicationResult,
+    pub application: fn(&Expr) -> Result<Expr, RuleApplicationError>,
 }
 
 impl Rule {
-    pub fn apply(&self, expr: &Expr) -> RuleApplicationResult {
+    pub fn apply(&self, expr: &Expr) -> Result<Expr, RuleApplicationError> {
         (self.application)(expr)
     }
 }
