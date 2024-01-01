@@ -1,18 +1,9 @@
-use crate::rule::{Rule, RuleApplicationError};
-use crate::Expr;
+use crate::rule::Rule;
 use linkme::distributed_slice;
 
 #[distributed_slice]
-pub static RULES: [Rule];
-
-fn example_rule(_expr: &Expr) -> Result<Expr, RuleApplicationError> {
-    Err(RuleApplicationError::RuleNotApplicable)
-}
-#[distributed_slice(RULES)]
-static _GEN_RULE_EXAMPLE_RULE: Rule = Rule {
-    application: example_rule,
-};
+pub static RULES_DISTRIBUTED_SLICE: [Rule];
 
 pub fn get_rules() -> Vec<Rule> {
-    RULES.to_vec()
+    RULES_DISTRIBUTED_SLICE.to_vec()
 }

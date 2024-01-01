@@ -4,5 +4,7 @@ pub use antwort_core::*;
 
 pub use antwort_solver as solver;
 
+pub use antwort_macros as macros;
+
 pub mod rule_engine;
-pub use rule_engine::get_rules;
+pub use rule_engine::RULES_DISTRIBUTED_SLICE;

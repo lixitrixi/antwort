@@ -6,4 +6,5 @@ edition = "2021"
 [dependencies]
 antwort_core = {path = "../antwort_core" }
 antwort_solver = {path = "../antwort_solver" }
+antwort_macros = {path = "../antwort_macros" }
 linkme = "0.3.20"
