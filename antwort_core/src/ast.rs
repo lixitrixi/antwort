@@ -1,4 +1,6 @@
-#[derive(Debug, PartialEq, Clone)]
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, PartialEq, Clone, Serialize, Deserialize)]
 pub enum Expr {
     Variable(String),
     Negation(Box<Expr>),
@@ -34,6 +36,76 @@ impl Expr {
             Expr::Equivalence(_, _) => {
                 Expr::Equivalence(Box::new(sub[0].clone()), Box::new(sub[1].clone()))
             }
+        }
+    }
+
+    pub fn is_variable(&self) -> bool {
+        match self {
+            Expr::Variable(_) => true,
+            _ => false,
+        }
+    }
+
+    pub fn is_negation(&self) -> bool {
+        match self {
+            Expr::Negation(_) => true,
+            _ => false,
+        }
+    }
+
+    pub fn is_disjunction(&self) -> bool {
+        match self {
+            Expr::Disjunction(_) => true,
+            _ => false,
+        }
+    }
+
+    pub fn is_conjunction(&self) -> bool {
+        match self {
+            Expr::Conjunction(_) => true,
+            _ => false,
+        }
+    }
+
+    pub fn is_implication(&self) -> bool {
+        match self {
+            Expr::Implication(_, _) => true,
+            _ => false,
+        }
+    }
+
+    pub fn is_equivalence(&self) -> bool {
+        match self {
+            Expr::Equivalence(_, _) => true,
+            _ => false,
+        }
+    }
+
+    /// Returns true if the expression is a literal.
+    /// A literal is either a variable or a negated variable.
+    pub fn is_literal(&self) -> bool {
+        match self {
+            Expr::Variable(_) => true,
+            Expr::Negation(a) => a.as_ref().is_variable(),
+            _ => false,
+        }
+    }
+
+    /// Returns true if the expression is a clause.
+    /// A clause is a single literal or a disjunction of literals.
+    pub fn is_clause(&self) -> bool {
+        match self {
+            Expr::Disjunction(a) => a.iter().all(|e| e.is_literal()),
+            expr => expr.is_literal(),
+        }
+    }
+
+    /// Returns true if the expression is in conjunctive normal form.
+    /// An expression is in conjunctive normal form if it is a single clause or a conjunction of clauses.
+    pub fn is_cnf(&self) -> bool {
+        match self {
+            Expr::Conjunction(a) => a.iter().all(|e| e.is_clause()),
+            expr => expr.is_clause(),
         }
     }
 }

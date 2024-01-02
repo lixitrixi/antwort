@@ -1,0 +1,4 @@
+#[test]
+fn {test_name}() -> Result<(), Box<dyn Error>> {{
+    integration_test("{dir_path}", "{input_base}")
+}}

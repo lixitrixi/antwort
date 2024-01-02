@@ -1,0 +1,12 @@
+{
+    "Negation": {
+        "Disjunction": [
+            {
+                "Variable": "a"
+            },
+            {
+                "Variable": "b"
+            }
+        ]
+    }
+}
