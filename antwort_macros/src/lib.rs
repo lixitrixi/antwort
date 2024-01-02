@@ -3,25 +3,11 @@ use quote::quote;
 use syn::{parse_macro_input, Ident, ItemFn};
 
 #[proc_macro_attribute]
-/// This procedural macro registers a valid function with Antwort's rule engine.
+/// This procedural macro registers a decorated function with Antwort's rule engine.
 /// Functions must have the signature `fn(&Expr) -> Result<Expr, RuleApplicationError>`.
 ///
 /// Intermediary static variables are created to allow for the decentralized registry, with the prefix `_ANTWORT_GEN_`.
-/// Care must be taken that other variables in the scope do not conflict with these.
-///
-/// Below is an example application of this macro:
-/// ```
-/// use antwort::macros::register_rule;
-/// use antwort::rule::{RuleApplicationError};
-/// use antwort::Expr;
-/// #[register_rule]
-/// fn example_rule(_expr: &Expr) -> Result<Expr, RuleApplicationError> {
-///     Err(RuleApplicationError::RuleNotApplicable)
-/// }
-///
-/// use antwort::rule_engine::get_rules;
-/// println!("{:?}", get_rules()); // [Rule { name: "example_rule", application: <fn_pointer> }]
-/// ```
+/// Please ensure that other variable names do not conflict with these.
 pub fn register_rule(_: TokenStream, item: TokenStream) -> TokenStream {
     let func = parse_macro_input!(item as ItemFn);
     let rule_ident = &func.sig.ident;
@@ -31,7 +17,7 @@ pub fn register_rule(_: TokenStream, item: TokenStream) -> TokenStream {
     let expanded = quote! {
         #func
 
-        #[::linkme::distributed_slice(::antwort::RULES_DISTRIBUTED_SLICE)]
+        #[::linkme::distributed_slice(::antwort::_RULES_DISTRIBUTED_SLICE)]
         static #static_ident: ::antwort::rule::Rule = ::antwort::rule::Rule {
             name: stringify!(#rule_ident),
             application: #rule_ident,

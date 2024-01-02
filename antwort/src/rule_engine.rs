@@ -3,10 +3,10 @@ use crate::Expr;
 use linkme::distributed_slice;
 
 #[distributed_slice]
-pub static RULES_DISTRIBUTED_SLICE: [Rule];
+pub static _RULES_DISTRIBUTED_SLICE: [Rule];
 
 pub fn get_rules() -> Vec<Rule> {
-    RULES_DISTRIBUTED_SLICE.to_vec()
+    _RULES_DISTRIBUTED_SLICE.to_vec()
 }
 
 /// Applies the first applicable rule to the expression and returns the rewritten result.

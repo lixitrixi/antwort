@@ -7,4 +7,4 @@ pub use antwort_solver as solver;
 pub use antwort_macros as macros;
 
 pub mod rule_engine;
-pub use rule_engine::RULES_DISTRIBUTED_SLICE;
+pub use rule_engine::_RULES_DISTRIBUTED_SLICE;
