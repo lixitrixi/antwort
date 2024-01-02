@@ -41,15 +41,15 @@ fn de_morgans2(expr: &Expr) -> Result<Expr, RuleApplicationError> {
 
 fn main() {
     let rules = get_rules();
-    println!("{:?}", rules);
-    let res = rules[0].apply(&Expr::Variable("a".to_string()));
-    println!("{:?}", res);
+    println!("Rules: {:?}", rules);
 
-    let expr = Expr::Negation(Box::new(Expr::Conjunction(vec![
+    let expr = Expr::Negation(Box::new(Expr::Disjunction(vec![
         Expr::Variable("a".to_string()),
         Expr::Variable("b".to_string()),
     ])));
-    rewrite(&expr);
+    println!("Original: {}", serde_json::to_string_pretty(&expr).unwrap());
+    let res = rewrite(&expr);
+    println!("Rewritten: {}", serde_json::to_string_pretty(&res).unwrap());
 
     let mut f = Formula::new();
     let mut c1 = Clause::new();

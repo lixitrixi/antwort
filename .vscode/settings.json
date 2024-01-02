@@ -3,4 +3,8 @@
     "editor.defaultFormatter": "rust-lang.rust-analyzer",
     "editor.formatOnSave": true,
     "rust-analyzer.showUnlinkedFileNotification": false,
+    "workbench.iconTheme": "vs-seti",
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
 }
