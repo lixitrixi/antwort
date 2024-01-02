@@ -92,20 +92,20 @@ impl Expr {
     }
 
     /// Returns true if the expression is a clause.
-    /// A clause is a disjunction of literals.
+    /// A clause is a single literal or a disjunction of literals.
     pub fn is_clause(&self) -> bool {
         match self {
             Expr::Disjunction(a) => a.iter().all(|e| e.is_literal()),
-            _ => false,
+            expr => expr.is_literal(),
         }
     }
 
     /// Returns true if the expression is in conjunctive normal form.
-    /// An expression is in conjunctive normal form if it is a conjunction of clauses.
+    /// An expression is in conjunctive normal form if it is a single clause or a conjunction of clauses.
     pub fn is_cnf(&self) -> bool {
         match self {
             Expr::Conjunction(a) => a.iter().all(|e| e.is_clause()),
-            _ => false,
+            expr => expr.is_clause(),
         }
     }
 }
