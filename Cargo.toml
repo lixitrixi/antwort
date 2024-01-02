@@ -3,4 +3,5 @@ members = [
     "antwort",
     "antwort_core",
     "antwort_solver",
+    "antwort_macros",
 ]
