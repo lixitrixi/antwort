@@ -1,0 +1,12 @@
+[package]
+name = "antwort_rules"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+antwort_core = {path = "../antwort_core" }
+antwort_macros = {path = "../antwort_macros" }
+linkme = "0.3.22"
+
+[profile.release]
+lto=false
