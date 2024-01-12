@@ -1,8 +1,5 @@
-use antwort::rule_engine::rewrite;
+use antwort::rewrite::rewrite;
 use antwort::solver::{solve, Clause, Formula};
-
-// TODO: This should be done via imports, not includes
-include!("./_rules/index.rs");
 
 fn main() {
     use antwort::Expr;

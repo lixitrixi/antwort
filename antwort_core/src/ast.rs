@@ -23,7 +23,7 @@ impl Expr {
         }
     }
 
-    /// Creates a clone of the expression with the sub-expressions replaced by the given vector.
+    /// Returns a clone of the same expression type with the given sub-expressions.
     pub fn with_sub_expressions(&self, sub: Vec<&Expr>) -> Expr {
         match self {
             Expr::Variable(_) => self.clone(),

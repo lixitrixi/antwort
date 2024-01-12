@@ -1,10 +1,12 @@
 use crate::{Error, Literal, Result};
 
+type LiteralArray = u64; // Bit array of literals, each can hold 64
+
 #[derive(Clone, Debug, PartialEq)]
 pub struct Clause {
-    pos_literals: Vec<u64>, // Bit arrays of positive literals
-    neg_literals: Vec<u64>, // Each "slice" can hold 64 literals
-    size: usize,            // The number of literals in this clause
+    pos_literals: Vec<LiteralArray>,
+    neg_literals: Vec<LiteralArray>,
+    size: usize, // The number of literals in this clause
 }
 
 impl Clause {
@@ -22,8 +24,11 @@ impl Clause {
     }
 
     /// Adds a literal to this clause. A negative literal represents its negated form.
+    /// # Returns
+    /// `Ok(())` if the literal was added.
+    /// `Err(Error::InvalidLiteral)` if the literal is invalid.
     pub fn add_literal(&mut self, literal: Literal) -> Result<()> {
-        let dest: &mut Vec<u64> = self.get_sign_vector_mut(literal)?;
+        let dest: &mut Vec<LiteralArray> = self.get_sign_vector_mut(literal)?;
         let (i, j) = get_index_offset(literal);
 
         if i >= dest.len() {
@@ -41,6 +46,7 @@ impl Clause {
 
     /// Returns true if this clause contains the given literal.
     /// # Returns
+    /// `true` if the literal is present.
     /// `false` if the literal is not present or is invalid.
     pub fn contains_literal(&self, literal: Literal) -> bool {
         let src = self.get_sign_vector(literal);
@@ -101,7 +107,7 @@ impl Clause {
         self.size == 1
     }
 
-    fn get_sign_vector(&self, literal: Literal) -> Result<&Vec<u64>> {
+    fn get_sign_vector(&self, literal: Literal) -> Result<&Vec<LiteralArray>> {
         match literal.signum() {
             1 => Ok(&self.pos_literals),
             -1 => Ok(&self.neg_literals),
@@ -109,7 +115,7 @@ impl Clause {
         }
     }
 
-    fn get_sign_vector_mut(&mut self, literal: Literal) -> Result<&mut Vec<u64>> {
+    fn get_sign_vector_mut(&mut self, literal: Literal) -> Result<&mut Vec<LiteralArray>> {
         match literal.signum() {
             1 => Ok(&mut self.pos_literals),
             -1 => Ok(&mut self.neg_literals),

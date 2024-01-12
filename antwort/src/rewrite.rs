@@ -1,13 +1,6 @@
 use crate::rule::Rule;
 use crate::Expr;
-use linkme::distributed_slice;
-
-#[distributed_slice]
-pub static _RULES_DISTRIBUTED_SLICE: [Rule];
-
-pub fn get_rules() -> Vec<Rule> {
-    _RULES_DISTRIBUTED_SLICE.to_vec()
-}
+use antwort_rules::get_rules;
 
 /// Applies the first applicable rule to the expression and returns the rewritten result.
 fn apply_first(expr: &Expr, rules: &Vec<Rule>) -> Option<Expr> {

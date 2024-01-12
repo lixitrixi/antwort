@@ -17,8 +17,8 @@ pub fn register_rule(_: TokenStream, item: TokenStream) -> TokenStream {
     let expanded = quote! {
         #func
 
-        #[::linkme::distributed_slice(::antwort::_RULES_DISTRIBUTED_SLICE)]
-        static #static_ident: ::antwort::rule::Rule = ::antwort::rule::Rule {
+        #[::linkme::distributed_slice(_RULES_DISTRIBUTED_SLICE)]
+        pub static #static_ident: ::antwort_core::rule::Rule = ::antwort_core::rule::Rule {
             name: stringify!(#rule_ident),
             application: #rule_ident,
         };

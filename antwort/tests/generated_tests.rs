@@ -1,9 +1,7 @@
-use antwort::rule_engine::rewrite;
+use antwort::rewrite::rewrite;
 use serde_json::from_str;
 use std::error::Error;
 use std::fs::read_to_string;
-
-include!("../src/_rules/index.rs");
 
 fn integration_test(dir_path: &str, input_base: &str) -> Result<(), Box<dyn Error>> {
     use antwort::Expr;
