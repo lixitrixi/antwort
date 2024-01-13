@@ -1,0 +1,12 @@
+{
+    "Negation": {
+        "Conjunction": [
+            {
+                "Variable": "a"
+            },
+            {
+                "Variable": "b"
+            }
+        ]
+    }
+}

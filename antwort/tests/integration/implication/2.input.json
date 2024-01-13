@@ -1,0 +1,17 @@
+{
+    "Implication": [
+        {
+            "Conjunction": [
+                {
+                    "Variable": "a"
+                },
+                {
+                    "Variable": "b"
+                }
+            ]
+        },
+        {
+            "Variable": "c"
+        }
+    ]
+}

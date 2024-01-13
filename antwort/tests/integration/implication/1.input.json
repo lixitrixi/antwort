@@ -1,0 +1,10 @@
+{
+    "Implication": [
+        {
+            "Variable": "a"
+        },
+        {
+            "Variable": "b"
+        }
+    ]
+}
