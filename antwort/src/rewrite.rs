@@ -37,13 +37,9 @@ fn rewrite_iteration(expr: &Expr, rules: &Vec<Rule>) -> Option<Expr> {
 /// Continues until no more rules are applicable to the expression or any sub-expression.
 pub fn rewrite(expr: &Expr) -> Expr {
     let rules = get_rules();
-    println!("RULES: {:?}", rules);
-    println!("REWRITE: {:?}", expr);
     let mut new = expr.clone();
     while let Some(step) = rewrite_iteration(&new, &rules) {
         new = step;
-        println!("   STEP: {:?}", new);
     }
-    println!("DONE");
     new
 }
