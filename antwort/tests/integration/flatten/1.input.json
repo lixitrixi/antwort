@@ -1,0 +1,40 @@
+{
+    "Conjunction": [
+        {
+            "Disjunction": [
+                {
+                    "Variable": "a"
+                },
+                {
+                    "Variable": "a"
+                },
+                {
+                    "Variable": "b"
+                }
+            ]
+        },
+        {
+            "Disjunction": [
+                {
+                    "Conjunction": [
+                        {
+                            "Negation": {
+                                "Variable": "a"
+                            }
+                        },
+                        {
+                            "Negation": {
+                                "Variable": "b"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Negation": {
+                        "Variable": "a"
+                    }
+                }
+            ]
+        }
+    ]
+}

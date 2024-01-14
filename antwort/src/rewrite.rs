@@ -1,4 +1,5 @@
 use crate::rule::Rule;
+use crate::solver::Formula;
 use crate::Expr;
 use antwort_rules::get_rules;
 
@@ -37,13 +38,9 @@ fn rewrite_iteration(expr: &Expr, rules: &Vec<Rule>) -> Option<Expr> {
 /// Continues until no more rules are applicable to the expression or any sub-expression.
 pub fn rewrite(expr: &Expr) -> Expr {
     let rules = get_rules();
-    println!("RULES: {:?}", rules);
-    println!("REWRITE: {:?}", expr);
     let mut new = expr.clone();
     while let Some(step) = rewrite_iteration(&new, &rules) {
         new = step;
-        println!("   STEP: {:?}", new);
     }
-    println!("DONE");
     new
 }
