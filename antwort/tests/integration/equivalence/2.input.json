@@ -1,0 +1,26 @@
+{
+    "Equivalence": [
+        {
+            "Negation": {
+                "Variable": "a"
+            }
+        },
+        {
+            "Disjunction": [
+                {
+                    "Conjunction": [
+                        {
+                            "Variable": "a"
+                        },
+                        {
+                            "Variable": "b"
+                        }
+                    ]
+                },
+                {
+                    "Variable": "b"
+                }
+            ]
+        }
+    ]
+}

@@ -10,6 +10,8 @@ fn integration_test(dir_path: &str, input_base: &str) -> Result<(), Box<dyn Erro
     let input_str = read_to_string(&input_json_path)?;
     let input_expr: Expr = from_str(&input_str)?;
 
+    println!("Rules: {:?}", antwort_rules::get_rules());
+
     let rewritten = rewrite(&input_expr);
     println!("Original: {}", serde_json::to_string_pretty(&input_expr)?);
     println!("Rewritten: {}", serde_json::to_string_pretty(&rewritten)?);

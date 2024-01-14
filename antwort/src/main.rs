@@ -1,13 +1,18 @@
 use antwort::rewrite::rewrite;
 use antwort::solver::{solve, Clause, Formula};
 
+extern crate antwort_rules;
+
 fn main() {
     use antwort::Expr;
 
-    let expr = Expr::Negation(Box::new(Expr::Disjunction(vec![
-        Expr::Variable("a".to_string()),
-        Expr::Variable("b".to_string()),
-    ])));
+    let expr = Expr::Equivalence(
+        Box::new(Expr::Negation(Box::new(Expr::Variable("a".to_string())))),
+        Box::new(Expr::Disjunction(vec![
+            Expr::Variable("a".to_string()),
+            Expr::Variable("b".to_string()),
+        ])),
+    );
     println!("Original: {}", serde_json::to_string_pretty(&expr).unwrap());
     let res = rewrite(&expr);
     println!("Rewritten: {}", serde_json::to_string_pretty(&res).unwrap());
