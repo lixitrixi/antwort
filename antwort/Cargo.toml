@@ -8,6 +8,7 @@ antwort_core = { path = "../antwort_core" }
 antwort_solver = { path = "../antwort_solver" }
 antwort_rules = { path = "../antwort_rules" }
 serde_json = "1.0.109"
+clap = { version = "4.4.16", features = ["derive"] }
 
 [build-dependencies]
 convert_case = "0.6.0"
