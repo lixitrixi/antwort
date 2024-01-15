@@ -1,5 +1,4 @@
 use crate::rule::Rule;
-use crate::solver::Formula;
 use crate::Expr;
 use antwort_rules::get_rules;
 

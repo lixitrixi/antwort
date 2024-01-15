@@ -7,6 +7,3 @@ edition = "2021"
 antwort_core = {path = "../antwort_core" }
 antwort_macros = {path = "../antwort_macros" }
 linkme = "0.3.22"
-
-[profile.release]
-lto=false

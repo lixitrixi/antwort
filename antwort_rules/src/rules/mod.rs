@@ -3,11 +3,6 @@ use antwort_core::{ast::Expr, rule::RuleApplicationError};
 use antwort_macros::register_rule;
 
 #[register_rule]
-fn example_rule(_expr: &Expr) -> Result<Expr, RuleApplicationError> {
-    Err(RuleApplicationError::RuleNotApplicable)
-}
-
-#[register_rule]
 fn de_morgans1(expr: &Expr) -> Result<Expr, RuleApplicationError> {
     if let Expr::Negation(b) = expr {
         if let Expr::Disjunction(exprs) = b.as_ref() {
@@ -97,40 +92,12 @@ fn flatten_disjunctions(expr: &Expr) -> Result<Expr, RuleApplicationError> {
 }
 
 #[register_rule]
-fn equicalence_elimination(expr: &Expr) -> Result<Expr, RuleApplicationError> {
+fn equivalence_elimination(expr: &Expr) -> Result<Expr, RuleApplicationError> {
     if let Expr::Equivalence(a, b) = expr {
         return Ok(Expr::Conjunction(vec![
             Expr::Implication(a.clone(), b.clone()),
             Expr::Implication(b.clone(), a.clone()),
         ]));
-    }
-    Err(RuleApplicationError::RuleNotApplicable)
-}
-
-#[register_rule]
-fn distribute_negation_disjunction(expr: &Expr) -> Result<Expr, RuleApplicationError> {
-    if let Expr::Negation(b) = expr {
-        if let Expr::Disjunction(exprs) = b.as_ref() {
-            let mut new_exprs = vec![];
-            for e in exprs {
-                new_exprs.push(Expr::Negation(Box::new(e.clone())));
-            }
-            return Ok(Expr::Conjunction(vec![Expr::Disjunction(new_exprs)]));
-        }
-    }
-    Err(RuleApplicationError::RuleNotApplicable)
-}
-
-#[register_rule]
-fn distribute_negation_conjunction(expr: &Expr) -> Result<Expr, RuleApplicationError> {
-    if let Expr::Negation(b) = expr {
-        if let Expr::Conjunction(exprs) = b.as_ref() {
-            let mut new_exprs = vec![];
-            for e in exprs {
-                new_exprs.push(Expr::Negation(Box::new(e.clone())));
-            }
-            return Ok(Expr::Disjunction(vec![Expr::Conjunction(new_exprs)]));
-        }
     }
     Err(RuleApplicationError::RuleNotApplicable)
 }
